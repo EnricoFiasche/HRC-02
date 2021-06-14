@@ -63,9 +63,11 @@ def setStartJointPosition(arm):
     # set the start state to the correct arm
     if(arm == "left"):
         left_group.clear_pose_targets()
+        rospy.sleep(0.5)
         left_group.set_start_state(moveit_robot_state)
     elif(arm == "right"):
         right_group.clear_pose_targets()
+        rospy.sleep(0.5)
         right_group.set_start_state(moveit_robot_state)
 
 def planning(request):

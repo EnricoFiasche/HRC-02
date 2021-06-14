@@ -93,6 +93,8 @@ def startSimulation():
     # blueblox position
     bluebox = tfBuffer.lookup_transform('world','Bluebox',rospy.Time())
     bluebox.transform.translation.z += 0.10
+    #bluebox.transform.translation.x += 0.00
+    #bluebox.transform.translation.y -= 0.05
 
     # middle position
     middlePos = tfBuffer.lookup_transform('world','MiddlePlacementN',rospy.Time())
@@ -108,7 +110,19 @@ def startSimulation():
              ['M',middlePos],
              ['MiddlePlacementN',bluebox],
             ]
+    
+    boxPositions = [
+                    [ 0.07,  0.05], # C placed at the top left inside bluebox
+                    #[ 0.0,   0.0],  # E placed at the middle placement
+                    [ 0.07, -0.05], # E placed at the top right inside bluebox
+                    [ 0.0,   0.05], # G placed at the middle left inside bluebox
+                    [ 0.0,  -0.05], # I placed at the middle left inside bluebox
+                    #[ 0.0,   0.0],  # M placed at the middle placement
+                    [-0.07,  0.05], # M placed at the bottom left inside bluebox
+                   ]
 
+    position = 0
+    
     # for each object in order
     for object in order:
         rospy.loginfo("Going to grasp block "+object[0])
@@ -197,6 +211,12 @@ def startSimulation():
 
         # while a possible collision is detected
         collisionDetected = True
+
+        # correct position of the block
+        if(object[1] == bluebox):
+            object[1].transform.translation.x += boxPositions[position][0]
+            object[1].transform.translation.y += boxPositions[position][1]
+
         while(collisionDetected):
 
             # publishing final position
@@ -215,6 +235,12 @@ def startSimulation():
             if(collisionDetected):
                 rospy.sleep(2)
 
+        # restoring intial position
+        if(object[1] == bluebox):
+            object[1].transform.translation.x -= boxPositions[position][0]
+            object[1].transform.translation.y -= boxPositions[position][1]
+            position += 1
+        
         # close gripper at grasp position
         isClosed.data = False
         gripperPub.publish(isClosed)
