@@ -113,11 +113,9 @@ def startSimulation():
     
     boxPositions = [
                     [ 0.07,  0.05], # C placed at the top left inside bluebox
-                    #[ 0.0,   0.0],  # E placed at the middle placement
                     [ 0.07, -0.05], # E placed at the top right inside bluebox
                     [ 0.0,   0.05], # G placed at the middle left inside bluebox
                     [ 0.0,  -0.05], # I placed at the middle left inside bluebox
-                    #[ 0.0,   0.0],  # M placed at the middle placement
                     [-0.07,  0.05], # M placed at the bottom left inside bluebox
                    ]
 
