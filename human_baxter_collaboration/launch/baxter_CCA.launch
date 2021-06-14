@@ -1,4 +1,0 @@
-<launch>
-	<node name="baxter_controller" pkg="human_baxter_collaboration" type="baxter_controller.py" output="screen"/>
-	<node name="baxter_collision_avoidance" pkg="human_baxter_collaboration" type="baxter_collision_avoidance.py" output="screen"/>
-</launch>
